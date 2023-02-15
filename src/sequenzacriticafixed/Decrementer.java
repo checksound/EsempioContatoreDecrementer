@@ -17,7 +17,7 @@ public class Decrementer extends Thread {
                     return;
                 else
                     contatore.decrement();  // step 2
-            }
-        }
-    }
+            }  // fine blocco synchronized
+        }    // fine while
+    }  // fine run
 }

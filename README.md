@@ -56,6 +56,7 @@ tipo `Contatore`.
 
 Con quale flusso di esecuzione potrebbe succedere che i due thread, t1 e t2, 
 non terminino non arrivando mai alla condizione d'uscita?
+
 Come si potrebbe cambiare il codice per far si che invece i due 
 thread terminino?
 
@@ -66,7 +67,43 @@ il thread che esegue il decremento [sequenzacritica.Decrementer](./src/sequenzac
 e l'applicazione [sequenzacritica.Main](./src/sequenzacritica/Main.java).
 
 Nonostante [sequenzacritica.Contatore](./src/sequenzacritica/Contatore.java) abbia tutti
-i metodi `synchronized` c'è comunque il problema della sezione critica.
+i metodi `synchronized` c'è comunque il problema della sezione critica in [sequenzacritica.Decrementer](./src/sequenzacritica/Decrementer.java).
+
+```java
+
+package sequenzacritica;
+
+public class Decrementer extends Thread {
+
+    private Contatore contatore;
+    public Decrementer(String name, Contatore contatore) {
+        super(name);
+        this.contatore = contatore;
+    }
+
+    public void run() {
+        while(true) {
+
+            boolean isZero = (0 == contatore.getValue());  // step 1
+            if(isZero)  // CONDIZIONE D'USCITA  // step 2
+                return;
+            else
+                contatore.decrement();  // step 3
+
+        }
+    }
+}
+
+```
+
+Il problema può nascere ad esempio da questa sequenza di esecuzione:
+se `contatore.getValue()` vale 1 ed eseguiamo questa sequenza dei due thread:
+`thread1.1 < thread2.1 < thread1.2 < thread2.2 < thread3.3 < thread3.3`, al termine della sequenza
+il valore di `contatore.getValue()` vale -1 e quindi i due thread che decrementano non raggiungeranno
+mai la condizione d'uscita (controllo se `contatore.getValue() == 0`).
+
+Mentre con la sequenza `thread1.1 < thread1.2 < thread1.3 < thread2.1 < thread2.2 < thread2.3` 
+il problema non si verifica.
 
 La versione [sequenzacriticafixed.Decrementer](./src/sequenzacriticafixed/Decrementer.java) con l'aggiunta
 del blocco `synchronized` per far si che un thread solo alla volta possa accedere alla
@@ -89,10 +126,10 @@ public class Decrementer extends Thread {
 
             synchronized(contatore) {
                 boolean isZero = (0 == contatore.getValue());  // step 1
-                if (isZero)  // CONDIZIONE D'USCITA
+                if (isZero)  // CONDIZIONE D'USCITA  // step 2
                     return;
                 else
-                    contatore.decrement();  // step 2
+                    contatore.decrement();  // step 3
             }
         }
     }
