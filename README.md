@@ -105,6 +105,9 @@ mai la condizione d'uscita (controllo se `contatore.getValue() == 0`).
 Mentre con la sequenza `thread1.1 < thread1.2 < thread1.3 < thread2.1 < thread2.2 < thread2.3` 
 il problema non si verifica.
 
+Basta provare ad eseguire qualche volta l'applicazione [sequenzacritica.Main](./src/sequenzacritica.Main.java) 
+per riscontrare il problema.
+
 La versione [sequenzacriticafixed.Decrementer](./src/sequenzacriticafixed/Decrementer.java) con l'aggiunta
 del blocco `synchronized` per far si che un thread solo alla volta possa accedere alla
 sequenza critica.
@@ -136,3 +139,5 @@ public class Decrementer extends Thread {
 }
 
 ```
+
+Ora il programma [sequenzacriticafixed.Main](./src/sequenzacriticafixed.Main.java)
