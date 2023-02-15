@@ -13,10 +13,10 @@ public class Decrementer extends Thread {
 
             synchronized(contatore) {
                 boolean isZero = (0 == contatore.getValue());  // step 1
-                if (isZero)  // CONDIZIONE D'USCITA
+                if (isZero)  // CONDIZIONE D'USCITA  step 2
                     return;
                 else
-                    contatore.decrement();  // step 2
+                    contatore.decrement();  // step 3
             }  // fine blocco synchronized
         }    // fine while
     }  // fine run
