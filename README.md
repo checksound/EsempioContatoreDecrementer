@@ -141,3 +141,4 @@ public class Decrementer extends Thread {
 ```
 
 Ora il programma [sequenzacriticafixed.Main](./src/sequenzacriticafixed.Main.java)
+termina correttamente.
