@@ -107,7 +107,7 @@ mai la condizione d'uscita (controllo se `contatore.getValue() == 0`).
 Mentre con la sequenza `thread1.1 < thread1.2 < thread1.3 < thread2.1 < thread2.2 < thread2.3` 
 il problema non si verifica.
 
-Basta provare ad eseguire qualche volta l'applicazione [sequenzacritica.Main](./src/sequenzacritica.Main.java) 
+Basta provare ad eseguire qualche volta l'applicazione [sequenzacritica.Main](./src/sequenzacritica/Main.java) 
 per riscontrare il problema. Il programma in alcuni casi non termina mai e va fermato dall'esterno perché i due thread
 non escono mai dal metodo run() e quindi l'applicazione non termina.
 
@@ -149,5 +149,5 @@ public class Decrementer extends Thread {
 
 ```
 
-Ora il programma [sequenzacriticafixed.Main](./src/sequenzacriticafixed.Main.java)
+Ora il programma [sequenzacriticafixed.Main](./src/sequenzacriticafixed/Main.java)
 termina correttamente.
