@@ -5,7 +5,8 @@ il valore, `decrement()` e un metodo che restituisce il valore `getValue()`;
 
 Qui sotto l'esempio di come si deve comportare un oggetto di tipo `Contatore`.
 
-```
+```java
+
 Contatore contatore = new Contatore(5);
 
 contatore.decrement();
@@ -13,6 +14,7 @@ int valore = contatore.getValue();  // ritorna valore=4
 
 contatore.decrement();
 valore = contatore.getValue();  // ritorna valore=3
+
 ```
 
 Implementare la classe `Contatore` scrivendo il codice, in modo che l'accesso da parte di più thread non crei 
@@ -106,7 +108,14 @@ Mentre con la sequenza `thread1.1 < thread1.2 < thread1.3 < thread2.1 < thread2.
 il problema non si verifica.
 
 Basta provare ad eseguire qualche volta l'applicazione [sequenzacritica.Main](./src/sequenzacritica.Main.java) 
-per riscontrare il problema.
+per riscontrare il problema. Il programma in alcuni casi non termina mai e va fermato dall'esterno perché i due thread
+non escono mai dal metodo run() e quindi l'applicazione non termina.
+
+L'implementazione [sequenzacritica.MainWithThreadTermination](./src/sequenzacritica/MainWithThreadTermination.java)
+forza la terminazione inviando una `interrupt()` ad ogni thread se ancora alive dopo 1 secondo di
+esecuzione 
+(Utilizza un decrementer che gestisce la situazione in cui è [sequenzacritica.DecrementerInterrompible](./src/sequenzacritica/DecrementerInterrompible.java)).
+
 
 La versione [sequenzacriticafixed.Decrementer](./src/sequenzacriticafixed/Decrementer.java) con l'aggiunta
 del blocco `synchronized` per far si che un thread solo alla volta possa accedere alla

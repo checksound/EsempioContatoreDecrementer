@@ -10,10 +10,10 @@ public class Main {
              decrementer1.start();
              decrementer2.start();
 
-             decrementer1.join(1*1000);
-             decrementer2.join(1*1000);
+             decrementer1.join();
+             decrementer2.join();
 
-            System.out.println("VALORE CONTATORE: " + contatore.getValue());
+             System.out.println("VALORE CONTATORE: " + contatore.getValue());
 
     }
 }
